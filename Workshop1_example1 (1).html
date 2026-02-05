@@ -21,6 +21,34 @@
         alert("Another hello world");
         alert("Still one more hello world");
 
+        var x = 55;
+        var order = 'Beer';
+
+        if (x > 70) {
+            document.write("He's over 70!" );
+        } else if (x <= 70 && x> 30){
+            document.write("Middle aged man, who ordered some "+order);
+        } else {
+            document.write("It seems you're bit underaged.");
+        }
+
+        var person = {
+        firstName:"John",
+        lastName:"Doe",
+        age:50,
+        eyeColor:"blue",
+        address:"123 Main Street",
+        telephone:"358-1234",
+        printInfo: function() {
+            console.log("First Name: " + this.firstName);
+            console.log("Last Name: " + this.lastName);
+            console.log("Age: " + this.age);
+            console.log("Eye Color: " + this.eyeColor);
+            console.log("Address: " + this.address);
+            console.log("Telephone: " + this.telephone);
+        }
+            };
+        console.log(person.age);
     </script>
 
 </head>
