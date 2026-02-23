@@ -19,12 +19,69 @@
     <hr>
 
     <!-- Harjoitus 1 -->
-    <h2>Harjoitus 1</h2>
+    <h2 id="harjoitus1">Harjoitus 1</h2>
+
+<script>
+document.querySelector('#harjoitus1')
+    .addEventListener("click", function() {
+
+        this.style.color = "red";
+        this.textContent = "Bye bye mouse!";
+    });
+</script>
+
     <p>Alla näet kaksi painiketta. Lisää näihin onClick‑tapahtumat.</p>
 
     <p>
-        <button>Napsauta minua</button>
-        <button>Näytä taulukko</button>
+        <button onclick="Klikkaus()">Napsauta minua</button>
+
+        <script>
+            function Klikkaus() {
+                alert("Klikkasit minua!");
+            }
+        </script>
+
+        <button onclick="showTable()">Näytä taulukko</button> 
+
+        <script>
+            function showTable() {
+                let nimi1 = "Tiger Nixon";
+                let tehtava1 = "System Architect";
+                let palkka1 = "$320,800";
+
+                let nimi2 = "Garrett Winters";
+                let tehtava2 = "Accountant";
+                let palkka2 = "$170,750";
+
+                let taulukko = `
+                    <table border="1">
+                        <thead>
+                            <tr>
+                                <th>Nimi</th>
+                                <th>Tehtävä</th>
+                                <th>Palkka</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>${nimi1}</td>
+                                <td>${tehtava1}</td>
+                                <td>${palkka1}</td>
+                            </tr>
+                            <tr>
+                                <td>${nimi2}</td>
+                                <td>${tehtava2}</td>
+                                <td>${palkka2}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                `;
+
+                let paikka = document.querySelector("#taulukonPaikka");
+
+                paikka.innerHTML = taulukko;
+            }
+        </script>
     </p>
 
     <div id="taulukonPaikka"></div>
@@ -62,10 +119,18 @@
     <hr>
 
     <!-- Harjoitus 2 -->
-    <h2>Harjoitus 2</h2>
+    <h2 onmouseover="hiiripaalla()">Harjoitus 2</h2>
+
+    <script>
+        function hiiripaalla() {
+            console.log("Stepped over me with a mouse!");
+        }
+    </script>
+
     <ul>
         <li>Lisää <code>mouseover</code>-tapahtuma otsikkoon “Harjoitus 2”. Tulosta konsoliin: <em>“Stepped over me with a mouse!”</em></li>
         <li>Lisää <code>click</code>-tapahtuma “Harjoitus 1” ‑otsikkoon dynaamisesti <code>addEventListener()</code>-metodilla. Otsikon värin tulee muuttua punaiseksi ja sisällöksi “Bye bye mouse!”.</li>
+
     </ul>
     <p>Vinkki: käytä <code>document.querySelector()</code>‑funktiota ja muuta sisältöä <code>innerHTML</code>‑kentällä.</p>
 
@@ -123,7 +188,87 @@
 
     <h3>Esikatselu</h3>
     <div id="preview" style="border: 1px solid #ccc; padding: 8px; min-height: 40px; background: #fafafa;">
-        (Esikatselu tulee tähän)
+        <script>
+            const textarea = document.querySelector("#feedback");
+            const status = document.querySelector("#status");
+
+        // FOCUS
+            textarea.addEventListener("focus", function() {
+            status.textContent = "Kirjoita palautteesi (10–200 merkkiä)";
+            status.style.color = "#333";
+            this.style.backgroundColor = "lightblue";
+            });
+
+        // BLUR
+        textarea.addEventListener("blur", function() {
+        status.textContent = "";
+        this.style.backgroundColor = "";
+        });
+
+        // INPUT
+        textarea.addEventListener("input", function() {
+            const text = this.value;
+            const len = text.lenght;
+
+            charcount.textContent = `${len}/${MAX}`;
+
+            if (len > MAX) {
+                charcount.style.color = "red"
+                status.textContent = "Liikaa merkkejä, maksimi on 200."
+                status.style.color = "red"
+            } else {
+                charcount.style.color = "";
+
+                status.textContent = "";
+                status.style.color = "";
+            }
+
+            preview.textContent = text.trim() ? text : "(Esikatselu tulee tähän)";
+
+            const ok = len >= MIN && len <= MAX;
+            sendBtn.disabled = !ok;
+        });
+
+        //  KEYDOWN
+        textarea.addEventListener("keydown", function (event) {
+            const isEnter = event.key === "Enter";
+            const hasModifier = event.ctrlKey || event.metaKey; 
+        if (isEnter && hasModifier) {
+            event.preventDefault(); 
+            form.requestSubmit();
+            }
+        });
+
+        // SUBMIT
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+         const text = textarea.value.trim();
+        const len = text.length;
+
+    if (len < MIN) {
+        status.textContent = `Palaute on liian lyhyt (min ${MIN} merkkiä).`;
+        status.style.color = "red";
+        return;
+     }
+
+    if (len > MAX) {
+        status.textContent = `Palaute on liian pitkä (max ${MAX} merkkiä).`;
+        status.style.color = "red";
+        return;
+    }
+
+        // Onnistui
+        status.textContent = "Kiitos palautteesta!";
+        status.style.color = "green";
+
+        textarea.value = "";
+            preview.textContent = "(Esikatselu tulee tähän)";
+            charcount.textContent = `0/${MAX}`;
+            charcount.style.color = "";
+            sendBtn.disabled = true;
+        });
+    </script>
     </div>
 
     <hr>
@@ -203,6 +348,37 @@ window.location.href = url;
         <li>Lisää laskuri, joka kertoo näppäinpainallusten määrän.</li>
         <li>Näytä jos Shift, Ctrl tai Alt on painettuna.</li>
     </ul>
+
+        <script>
+        const keybox = document.querySelector("#keybox");
+        const keyinfo = document.querySelector("#keyinfo");
+
+    let count = 0; // bonus: painalluslaskuri
+
+        document.addEventListener("keydown", function (event) {
+    // 1) Tulosta tapahtuma konsoliin
+        console.log(event);
+
+    // bonus: laskuri
+        count++;
+
+    // 2) Näytä key ja code #keyinfo-elementissä
+        const mods = [
+            event.shiftKey ? "Shift" : null,
+            event.ctrlKey ? "Ctrl" : null,
+            event.altKey ? "Alt" : null,
+            event.metaKey ? "Cmd/Win" : null
+        ].filter(Boolean).join(" + ");
+
+    keyinfo.textContent =
+        `Näppäin: ${event.key} | Koodi: ${event.code} | Painalluksia: ${count}` +
+        (mods ? ` | Modifiers: ${mods}` : "");
+
+    // 3) Näytä painettu näppäin isolla fontilla keyboxissa
+    // (Käytetään innerHTML, jotta saadaan iso fontti helposti)
+        keybox.innerHTML = `<span style="font-size: 2.5em;">${event.key}</span>`;
+    });
+    </script>
 
 </body>
 </html>
