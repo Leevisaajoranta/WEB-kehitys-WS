@@ -10,16 +10,18 @@
 
 <body>
 	<hr />
-	<h2>Tehtävä 1: Perus- DOM-muokkaus</h2>
+	<h2 id="otsikko1">Tehtävä 1: Perus- DOM-muokkaus</h2>
 	<p>
 		&nbsp;Alla näet kolme painiketta. Muokkaa lähdekoodia ja lisää näille
 		painikkeille onClick-tapahtumat. Käytä kehittäjäkonsolia löytääksesi
 	</p>
 	<p>
-		<button onclick="changeHeading();">Painike 1</button>
+		<button onclick="changeHeading()">Painike 1</button>
 		<button onclick="secondButton()">Painike 2</button>
-		<button onclick="">Painike 3</button>
+		<button onclick="thirdButton()">Painike 3</button>
 	</p>
+
+	
 
 	<ul>
 		<li>
@@ -52,7 +54,7 @@
 
 	<div id="sisalto"></div>
 	<hr />
-	<h2>Tehtävä 2: Elementtien luomista dynaamisesti</h2>
+	<h2 id="otsikko2">Tehtävä 2: Elementtien luomista dynaamisesti</h2>
 	Tee allaolevat operaatiot sivulle JavaScriptia käyttäen. Älä siis kirjoita itse HTML:n sekaan tägejä vaan kirjoita
 	JavaScript-koodi joka luo ne. Kokeile komento kerrallaan ensin konsolissa. Kun löydät oikeat komennot, vie ne HTML:n
 	sivulle talteen. Muokkaa myös tyylejä JS:n avulla.
@@ -227,6 +229,26 @@
 				&lsquo;Select&rsquo;?
 			</li>
 		</ul>
+
+	<script>
+		function changeHeading() {
+			document.getElementById("otsikko1").innerHTML = "Muokattu otsikko!";
+		}
+		
+		function secondButton() {
+			var element = document.getElementById("otsikko2");
+			element.style.fontSize = "35px";
+			element.style.fontStyle = "italic";
+			element.style.color = "green";
+			element.style.backgroundColor = "red";
+		}
+
+		function thirdButton() {
+			document.getElementById("lorem").innerHTML = "Tässä on uusi teksti Lorem rimpsun tilalle!";
+		}
+
+	</script>
+
 </body>
 
 </html>
