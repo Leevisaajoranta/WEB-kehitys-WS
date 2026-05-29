@@ -47,4 +47,29 @@ nayta.addEventListener("click", () => {
   sisalto.style.display = "block";
 });
 
+const valikko = document.querySelector("#mySelect");
+const autoKuva = document.querySelector("#carimage");
 
+function vaihdaAuto() {
+    alert("Valitsit: " + valikko.value);
+
+    if (valikko.value === "BMW") {
+        autoKuva.src = "https://www.bmw.fi/content/dam/bmw/common/all-models/m-series/m8-coupe/2022/navigation/bmw-8series-coupe-modellfinder.png";
+    } else if (valikko.value === "Audi") {
+        autoKuva.src = "https://www.pngplay.com/wp-content/uploads/13/Audi-RS5-PNG-Clipart-Background.png";
+    } else if (valikko.value === "Mercedes") {
+        autoKuva.src = "https://www.pngall.com/wp-content/uploads/19/Sophisticated-Mercedes-Car-Design-Element-PNG.png";
+    } else if (valikko.value === "Volvo") {
+        autoKuva.src = "https://www.pngall.com/wp-content/uploads/2/Volvo-PNG-Pic.png";
+    }
+}
+
+valikko.addEventListener("change", vaihdaAuto);
+
+autoKuva.addEventListener("mouseover", function () {
+    autoKuva.style.border = "5px solid green";
+});
+
+autoKuva.addEventListener("mouseout", function () {
+    autoKuva.style.border = "none";
+});
