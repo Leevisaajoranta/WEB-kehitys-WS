@@ -73,3 +73,48 @@ autoKuva.addEventListener("mouseover", function () {
 autoKuva.addEventListener("mouseout", function () {
     autoKuva.style.border = "none";
 });
+
+const lisaaNappi = document.querySelector("#Insert");
+
+lisaaNappi.addEventListener("click", () => {
+
+    const nimi = document.querySelector("#nimi").value;
+    const tehtava = document.querySelector("#tehtava").value;
+    const palkka = document.querySelector("#palkka").value;
+
+    // Validointi
+    if (nimi.length <= 5) {
+        alert("Nimen tulee olla yli 5 merkkiä pitkä.");
+        return;
+    }
+
+    if (tehtava.trim() === "") {
+        alert("Tehtävä ei saa olla tyhjä.");
+        return;
+    }
+
+    if (palkka <= 0 || isNaN(palkka)) {
+        alert("Palkan tulee olla numero ja suurempi kuin 0.");
+        return;
+    }
+
+    // Lisätään rivi taulukkoon
+    const taulukko = document.querySelector("#data tbody");
+
+    const uusiRivi = taulukko.insertRow();
+
+    const solu1 = uusiRivi.insertCell();
+    const solu2 = uusiRivi.insertCell();
+    const solu3 = uusiRivi.insertCell();
+
+    solu1.textContent = nimi;
+    solu2.textContent = tehtava;
+    solu3.textContent = palkka;
+
+    alert("Rivi lisätty!");
+
+    // Tyhjennetään kentät
+    document.querySelector("#nimi").value = "";
+    document.querySelector("#tehtava").value = "";
+    document.querySelector("#palkka").value = "";
+});
